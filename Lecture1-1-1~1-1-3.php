@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<link rel="stylesheet" href="part3.css">
+	<link rel="stylesheet" href="Lecture1-1-1~1-1-3.css">
 	<title>part3</title>
 </head>
 <body>

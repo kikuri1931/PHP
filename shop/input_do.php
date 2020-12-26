@@ -6,8 +6,7 @@
 </head>
 <body>
 	<?php 
-		$db = mysqli_connect('localhost', 'root', '', 'mydb') or die(mysqli_connect_error());
-		mysqli_set_charset($db, 'utf-8');
+		require('dbconnect.php');
 
 		$sql = sprintf('INSERT INTO my_items SET maker_id=%d, item_name="%s", price=%d, keyword="%s"', 
 			mysqli_real_escape_string($db, $_POST['maker_id']),

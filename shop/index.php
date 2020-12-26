@@ -6,8 +6,7 @@
 </head>
 <body>
 	<?php 
-		$db = mysqli_connect('localhost', 'root', '', 'mydb') or die(mysqli_connect_error());
-		mysqli_set_charset($db, 'utf-8');
+		require('dbconnect.php');
 		$recordSet = mysqli_query($db, 'SELECT m.name, i.* FROM makers m, my_items i WHERE m.id=i.maker_id ORDER BY id DESC')
 	?>
 	<table width="100%">

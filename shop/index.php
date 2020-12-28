@@ -31,6 +31,7 @@
 			<th scope="col">メーカー</th>
 			<th scope="col">商品名</th>
 			<th scope="col">価格</th>
+			<th scope="col">編集・削除</th>
 		</tr>
 		<?php 
 			while ($table = mysqli_fetch_assoc($recordSet)) {	
@@ -47,6 +48,9 @@
 			</td>
 			<td>
 				<?php print(htmlspecialchars($table['price'])); ?>
+			</td>
+			<td>
+				<a href="update.php?id=<?php print(htmlspecialchars($table['id'])); ?>">編集</a>
 			</td>
 		</tr>
 		<?php 

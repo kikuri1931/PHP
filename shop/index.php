@@ -24,7 +24,12 @@
 		$start = ($page - 1) * 5;
 		$recordSet = mysqli_query($db, 'SELECT m.name, i.* FROM makers m, my_items i WHERE m.id=i.maker_id ORDER BY id DESC LIMIT '.$start.', 5');
 	?>
+
 	<h1>｜ 商品管理</h1>
+	<p>
+		<a href="input.php">新しい商品を登録する</a>
+	</p>
+
 	<table width="100%">
 		<tr>
 			<th scope="col">ID</th>
@@ -51,6 +56,7 @@
 			</td>
 			<td>
 				<a href="update.php?id=<?php print(htmlspecialchars($table['id'])); ?>">編集</a>
+				<a href="delete.php?id=<?php print(htmlspecialchars($table['id'])); ?>">削除</a>
 			</td>
 		</tr>
 		<?php 

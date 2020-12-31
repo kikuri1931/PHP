@@ -56,7 +56,7 @@
 			</td>
 			<td>
 				<a href="update.php?id=<?php print(htmlspecialchars($table['id'])); ?>">編集</a>
-				<a href="delete.php?id=<?php print(htmlspecialchars($table['id'])); ?>">削除</a>
+				<a href="delete.php?id=<?php print(htmlspecialchars($table['id'])); ?>" onclick="return confirm('削除してよろしいですか')">削除</a>
 			</td>
 		</tr>
 		<?php 

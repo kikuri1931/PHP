@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>practice2</title>
+	<link rel="stylesheet" href="practice2.css">
+</head>
+<body>
+	<h1>｜会員登録</h1>
+	<p>次のフォームに必要事項をご記入ください。</p>
+	
+	<form method="post" enctype="multipart/form=data">
+		<h4>
+			ニックネーム<span class="required">必須</span>
+		</h4>
+		<input type="text" name="name" size="35" maxlength="255">
+		<h4>
+			メールアドレス<span class="required">必須</span>
+		</h4>
+		<input type="text" name="email" size="35" maxlength="255">
+		<h4>
+			パスワード<span class="required">必須</span>
+		</h4>
+		<input type="password" name="password" size="10" maxlength="20">
+		<h4>写真など</h4>
+		<input type="file" name="image" size="35">
+		<div class="submit">
+			<input type="submit" value="入力内容を確認する">
+		</div>
+	</form>
+</body>
+</html>

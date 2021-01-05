@@ -38,7 +38,8 @@
 		<h4>
 			ニックネーム<span class="required">必須</span>
 		</h4>
-		<input type="text" name="name" size="35" maxlength="255" value="<?php if (!empty($_POST)) {print(htmlspecialchars($_POST['name'], ENT_QUOTES, 'UTF-8'));} ?>">
+		<input type="text" name="name" size="35" maxlength="255" 
+			   value="<?php if (!empty($_POST)) { print(htmlspecialchars($_POST['name'], ENT_QUOTES, 'UTF-8')); } ?>">
 		<?php if (!empty($error['name'])): ?>
 			<p class="error">*ニックネームを入力してください</p>
 		<?php endif; ?>
@@ -46,11 +47,25 @@
 		<h4>
 			メールアドレス<span class="required">必須</span>
 		</h4>
-		<input type="text" name="email" size="35" maxlength="255">
+		<input type="text" name="email" size="35" maxlength="255"
+		       value="<?php if (!empty($_POST)) { print(htmlspecialchars($_POST['email'], ENT_QUOTES, 'UTF-8')); } ?>">
+		<?php if (!empty($error['email'])): ?>
+			<p class="error">*メールアドレスを入力してください</p>
+		<?php endif; ?>
+
 		<h4>
 			パスワード<span class="required">必須</span>
 		</h4>
 		<input type="password" name="password" size="10" maxlength="20">
+		<?php if (!empty($error['password'])): ?>
+			<?php if ($error['password'] == 'blank'): ?>
+				<p class="error">*パスワードを入力してください</p>
+			<?php endif; ?>
+			<?php if ($error['password'] == 'length'): ?>
+				<p class="error">*パスワードを4文字以上で入力してください</p>
+			<?php endif; ?>
+		<?php endif; ?>
+		
 		<h4>写真など</h4>
 		<input type="file" name="image" size="35">
 		<div class="submit">

@@ -38,11 +38,11 @@
 		<h4>
 			ニックネーム<span class="required">必須</span>
 		</h4>
-		<input type="text" name="name" size="35" maxlength="255">
+		<input type="text" name="name" size="35" maxlength="255" value="<?php if (!empty($_POST)) {print(htmlspecialchars($_POST['name'], ENT_QUOTES, 'UTF-8'));} ?>">
 		<?php if (!empty($error['name'])): ?>
 			<p class="error">*ニックネームを入力してください</p>
 		<?php endif; ?>
-		
+
 		<h4>
 			メールアドレス<span class="required">必須</span>
 		</h4>

@@ -5,6 +5,32 @@
 	<link rel="stylesheet" href="practice2.css">
 </head>
 <body>
+	<?php 
+		session_start();
+
+		if (!empty($_POST)) {
+			// エラー項目の確認
+			if ($_POST['name'] == '') {
+				$error['name'] = 'blank';
+			}
+			if ($_POST['email'] == '') {
+				$error['email'] = 'blank';
+			}
+			if (strlen($_POST['password']) < 4) {
+				$error['password'] = 'length';
+			}
+			if ($_POST['password'] == '') {
+				$error['password'] = 'blank';
+			}
+
+			if (empty($error)) {
+				$_SESSION['join'] = $_POST;
+				header('Location: check.php');
+				exit();
+			}
+		}
+	?>
+
 	<h1>｜会員登録</h1>
 	<p>次のフォームに必要事項をご記入ください。</p>
 	
@@ -13,6 +39,10 @@
 			ニックネーム<span class="required">必須</span>
 		</h4>
 		<input type="text" name="name" size="35" maxlength="255">
+		<?php if (!empty($error['name'])): ?>
+			<p class="error">*ニックネームを入力してください</p>
+		<?php endif; ?>
+		
 		<h4>
 			メールアドレス<span class="required">必須</span>
 		</h4>

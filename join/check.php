@@ -1,8 +1,25 @@
 <?php 
 	session_start();
+	require('../dbconnect.php');
 
 	if (!isset($_SESSION['join'])) {
 		header('Location: index.php');
+		exit();
+	}
+	if (!empty($_POST)) {
+		// 登録処理する
+		$sql = sprintf('INSERT INTO members SET name="%s", email="%s", password="%s", picture="%s", created="%s"',
+		                mysqli_real_escape_string($db, $_SESSION['join']['name']),
+		                mysqli_real_escape_string($db, $_SESSION['join']['email']),
+		                mysqli_real_escape_string($db, sha1($_SESSION['join']['password'])),
+		                mysqli_real_escape_string($db, $_SESSION['join']['image']),
+		                date('Y-m-d H:i:s')
+		                );
+		mysqli_query($db, $sql) or die(mysqli_error($db));
+		unset($_SESSION['join']);
+
+		header('Location: thanks.php');
+		exit();
 	}
 ?>
 
@@ -18,6 +35,7 @@
 		記入した内容を確認して、「登録する」ボタンをクリックしてください。
 	</p>
 	<form method="post">
+		<input type="hidden" name="action" value="submit">
 		<h4>ニックネーム</h4>
 		<p>
 			<?php 

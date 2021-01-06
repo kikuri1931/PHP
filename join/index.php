@@ -1,4 +1,6 @@
 <?php 
+	require('../dbconnect.php');
+
 	session_start();
 
 	if (!empty($_POST) || !empty($_FILES['image'])) {
@@ -20,6 +22,16 @@
 			$ext = substr($fileName, -3);
 			if ($ext != 'jpg' && $ext != 'gif') {
 				$error['image'] = 'type';
+			}
+		}
+
+		// 重複アカウントのチェック
+		if (empty($error)) {
+			$sql = sprintf('SELECT COUNT(*) AS cnt FROM members WHERE email="%s"',mysqli_real_escape_string($db, $_POST['email']));
+			$record = mysqli_query($db, $sql) or die(mysqli_error($db));
+			$table = mysqli_fetch_assoc($record);
+			if ($table['cnt'] > 0) {
+				$error['email'] = 'duplicate';
 			}
 		}
 
@@ -68,9 +80,13 @@
 		</h4>
 		<input type="text" name="email" size="35" maxlength="255"
 		       value="<?php if (!empty($_POST)) { print(htmlspecialchars($_POST['email'], ENT_QUOTES, 'UTF-8')); } ?>">
-		<?php if (!empty($error['email'])): ?>
+		<?php if (!empty($error['email']) && $error['email'] == 'blank'): ?>
 			<p class="error">
 				* メールアドレスを入力してください
+			</p>
+		<?php elseif (!empty($error['email']) && $error['email'] == 'duplicate'): ?>
+			<p class="error">
+				* 指定されたメールアドレスはすでに登録されています
 			</p>
 		<?php endif; ?>
 

@@ -1,3 +1,46 @@
+<?php 
+	session_start();
+
+	if (!empty($_POST) || !empty($_FILES['image'])) {
+		// エラー項目の確認
+		if ($_POST['name'] == '') {
+			$error['name'] = 'blank';
+		}
+		if ($_POST['email'] == '') {
+			$error['email'] = 'blank';
+		}
+		if (strlen($_POST['password']) < 4) {
+			$error['password'] = 'length';
+		}
+		if ($_POST['password'] == '') {
+			$error['password'] = 'blank';
+		}
+		$fileName = $_FILES['image']['name'];
+		if (!empty($fileName)) {
+			$ext = substr($fileName, -3);
+			if ($ext != 'jpg' && $ext != 'gif') {
+				$error['image'] = 'type';
+			}
+		}
+
+		if (empty($error)) {
+			// 画像をアップロードする
+			$image =date('YmdHis') . $_FILES['image']['name'];
+			move_uploaded_file($_FILES['image']['tmp_name'], '../member_picture/'.$image);
+
+			$_SESSION['join'] = $_POST;
+			$_SESSION['join']['image'] = $image;
+			header('Location: check.php');
+			exit();
+		}
+	}
+
+	// 書き直し
+	if (!empty($_REQUEST['action']) && $_REQUEST['action'] == 'rewrite') {
+		$_POST = $_SESSION['join'];
+		$error['rewrite'] = true;
+	}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -5,44 +48,6 @@
 	<link rel="stylesheet" href="practice2.css">
 </head>
 <body>
-	<?php 
-		session_start();
-
-		if (!empty($_POST) || !empty($_FILES['image'])) {
-			// エラー項目の確認
-			if ($_POST['name'] == '') {
-				$error['name'] = 'blank';
-			}
-			if ($_POST['email'] == '') {
-				$error['email'] = 'blank';
-			}
-			if (strlen($_POST['password']) < 4) {
-				$error['password'] = 'length';
-			}
-			if ($_POST['password'] == '') {
-				$error['password'] = 'blank';
-			}
-			$fileName = $_FILES['image']['name'];
-			if (!empty($fileName)) {
-				$ext = substr($fileName, -3);
-				if ($ext != 'jpg' && $ext != 'gif') {
-					$error['image'] = 'type';
-				}
-			}
-
-			if (empty($error)) {
-				// 画像をアップロードする
-				$image =date('YmdHis') . $_FILES['image']['name'];
-				move_uploaded_file($_FILES['image']['tmp_name'], '../member_picture/'.$image);
-
-				$_SESSION['join'] = $_POST;
-				$_SESSION['join']['image'] = $image;
-				header('Location: check.php');
-				exit();
-			}
-		}
-	?>
-
 	<h1>｜会員登録</h1>
 	<p>次のフォームに必要事項をご記入ください。</p>
 	

@@ -56,6 +56,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta charset="utf-8">
 	<title>practice2</title>
 	<link rel="stylesheet" href="practice2.css">
 </head>

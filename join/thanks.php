@@ -7,7 +7,7 @@
 <body>
 	<p>ユーザ登録が完了しました。</p>
 	<p>
-		<a href="../">ログインする</a>
+		<a href="../login.php">ログインする</a>
 	</p>
 </body>
 </html>

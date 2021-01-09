@@ -1,3 +1,21 @@
+<?php 
+session_start();
+require('../dbconnect.php');
+
+if (isset($_SESSION['id']) && $_SESSION['time'] + 3600 > time()) {
+	// ログインしている
+	$_SESSION['time'] = time();
+
+	$sql = sprintf('SELECT * FROM members WHERE id=%d', mysqli_real_escape_string($db, $_SESSION['id']));
+	$record = mysqli_query($db, $sql) or die(mysqli_error($db));
+	$member = mysqli_fetch_assoc($record);
+} else {
+	// ログインしていない
+	header('Location: ../login.php');
+	exit();
+}
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +30,7 @@
 		</div>
 		<div id="content">
 			<form method="post">
-				<h4>メッセージをどうぞ</h4>
+				<h4><?php echo htmlspecialchars($member['name']); ?>さん、メッセージをどうぞ</h4>
 				<textarea name="message" cols="50" rows="5"></textarea>
 				<div>
 					<input type="submit" value="送信する">

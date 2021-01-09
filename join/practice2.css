@@ -17,3 +17,18 @@ h4 {
     color: red;
     margin: 0;
 }
+.msg {
+	border-top: 1px solid #c7c3c3;
+    margin-top: 15px;
+    padding: 10px;
+    display: flex;
+  	flex-direction: row;
+}
+.msg p {
+	margin: 0;
+}
+
+.day {
+	color: #8e8a8a;
+    font-size: 14px;
+}

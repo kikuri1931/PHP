@@ -27,6 +27,10 @@ if (!empty($_POST)) {
 		exit();
 	}
 }
+
+// 投稿を取得する
+$sql = sprintf('SELECT m. name, m.picture, p.* FROM members m, posts p WHERE m.id=p.member_id ORDER BY p.created DESC');
+$posts = mysqli_query($db, $sql) or die(mysqli_error($db));
 ?>
 
 <!DOCTYPE html>
@@ -49,6 +53,21 @@ if (!empty($_POST)) {
 					<input type="submit" value="送信する">
 				</div>
 			</form>
+			<?php while ($post = mysqli_fetch_assoc($posts)): ?>
+				<div class="msg">
+					<img src="../member_picture/<?php echo htmlspecialchars($post['picture'], ENT_QUOTES, 'UTF-8'); ?>" width="48" height="48"
+					alt="<?php echo htmlspecialchars($post['name'], ENT_QUOTES, 'UTF-8'); ?>">
+					<p>
+						<?php echo htmlspecialchars($post['message'], ENT_QUOTES, 'UTF-8'); ?>
+						(<?php echo htmlspecialchars($post['name'], ENT_QUOTES, 'UTF-8'); ?>)	
+						<br>					
+						<span class="day">
+							<?php echo htmlentities($post['created'], ENT_QUOTES, 'UTF-8'); ?>
+						</span>
+					</p>
+					
+				</div>
+			<?php endwhile; ?>
 		</div>
 	</div>
 </body>

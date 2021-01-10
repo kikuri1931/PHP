@@ -29,8 +29,18 @@ if (!empty($_POST)) {
 }
 
 // 投稿を取得する
-$sql = sprintf('SELECT m. name, m.picture, p.* FROM members m, posts p WHERE m.id=p.member_id ORDER BY p.created DESC');
+$sql = sprintf('SELECT m.name, m.picture, p.* FROM members m, posts p WHERE m.id=p.member_id ORDER BY p.created DESC');
 $posts = mysqli_query($db, $sql) or die(mysqli_error($db));
+
+// 返信の場合
+if (isset($_REQUEST['res'])) {
+	$sql = sprintf('SELECT m.name, m.picture, p.* FROM members m, posts p WHERE m.id=p.member_id AND p.id=%d ORDER BY p.created DESC',
+					mysqli_real_escape_string($db, $_REQUEST['res'])
+					);
+	$record = mysqli_query($db, $sql) or die(mysqli_error($db));
+	$table = mysqli_fetch_assoc($record);
+	$message = '@'.$table['name'].''.$table['message'];
+}
 ?>
 
 <!DOCTYPE html>
@@ -48,7 +58,13 @@ $posts = mysqli_query($db, $sql) or die(mysqli_error($db));
 		<div id="content">
 			<form method="post">
 				<h4><?php echo htmlspecialchars($member['name']); ?>さん、メッセージをどうぞ</h4>
-				<textarea name="message" cols="50" rows="5"></textarea>
+				<textarea name="message" cols="50" rows="5"><?php 
+															if (isset($_REQUEST['res'])) {
+																echo htmlspecialchars($message, ENT_QUOTES, 'UTF-8'); } 
+															?></textarea>
+				<?php if (isset($_REQUEST['res'])): ?>
+					<input type="hidden" name="reply_post_id" value="<?php echo htmlspecialchars($_REQUEST['res'], ENT_QUOTES, 'UTF-8'); ?>">
+				<?php endif; ?>
 				<div>
 					<input type="submit" value="送信する">
 				</div>

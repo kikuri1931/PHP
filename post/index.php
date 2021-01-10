@@ -53,13 +53,15 @@ $posts = mysqli_query($db, $sql) or die(mysqli_error($db));
 					<input type="submit" value="送信する">
 				</div>
 			</form>
+
 			<?php while ($post = mysqli_fetch_assoc($posts)): ?>
 				<div class="msg">
 					<img src="../member_picture/<?php echo htmlspecialchars($post['picture'], ENT_QUOTES, 'UTF-8'); ?>" width="48" height="48"
 					alt="<?php echo htmlspecialchars($post['name'], ENT_QUOTES, 'UTF-8'); ?>">
 					<p>
 						<?php echo htmlspecialchars($post['message'], ENT_QUOTES, 'UTF-8'); ?>
-						(<?php echo htmlspecialchars($post['name'], ENT_QUOTES, 'UTF-8'); ?>)	
+						(<?php echo htmlspecialchars($post['name'], ENT_QUOTES, 'UTF-8'); ?>)
+						[<a href="index.php?res=<?php echo htmlspecialchars($post['id'], ENT_QUOTES, 'UTF-8'); ?>">Re</a>]
 						<br>					
 						<span class="day">
 							<?php echo htmlentities($post['created'], ENT_QUOTES, 'UTF-8'); ?>

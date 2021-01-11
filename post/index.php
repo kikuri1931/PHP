@@ -81,7 +81,9 @@ if (isset($_REQUEST['res'])) {
 						[<a href="index.php?res=<?php echo htmlspecialchars($post['id'], ENT_QUOTES, 'UTF-8'); ?>">Re</a>]
 						<br>					
 						<span class="day">
-							<?php echo htmlentities($post['created'], ENT_QUOTES, 'UTF-8'); ?>
+							<a href="view.php?id=<?php echo htmlspecialchars($post['id'], ENT_QUOTES, 'UTF-8'); ?>">
+								<?php echo htmlentities($post['created'], ENT_QUOTES, 'UTF-8'); ?>
+							</a>
 						</span>
 					</p>
 					

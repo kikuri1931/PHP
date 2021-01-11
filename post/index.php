@@ -84,6 +84,12 @@ if (isset($_REQUEST['res'])) {
 							<a href="view.php?id=<?php echo htmlspecialchars($post['id'], ENT_QUOTES, 'UTF-8'); ?>">
 								<?php echo htmlentities($post['created'], ENT_QUOTES, 'UTF-8'); ?>
 							</a>
+
+							<?php if ($post['reply_post_id'] > 0): ?>
+								<a href="view.php?id=<?php echo htmlspecialchars($post['reply_post_id'], ENT_QUOTES, 'UTF-8'); ?>">
+									返信元のメッセージ
+								</a>
+							<?php endif; ?>
 						</span>
 					</p>
 					
